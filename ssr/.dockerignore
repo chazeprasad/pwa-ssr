@@ -1,0 +1,40 @@
+.git
+.vscode
+node_modules
+yarn-error.log
+.gitignore
+
+#other files
+cloudformation
+pipe_script
+dist
+scripts
+.env.sample
+.prettierignore
+.prettierrc
+.editorconfig
+appspec.yml
+Dockerfile
+
+# compiled output
+dist
+tmp
+sme
+deploy
+
+# dependencies
+node_modules
+
+# IDEs and editors
+.idea
+.vs
+.vscode
+.project
+.classpath
+*.launch
+.settings/
+
+
+#System Files
+.DS_Store
+Thumbs.db

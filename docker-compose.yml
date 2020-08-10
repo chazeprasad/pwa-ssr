@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  ssr-service:
+    container_name: ssr-service
+    build:
+      context: ./ssr/
+      dockerfile: Dockerfile
+    image: node:12
+    restart: unless-stopped
+    volumes:
+      - './ssr:/usr/src/app'
+      - './ssr/package.json:/usr/src/app/package.json'
+      - './ssr/processes.json:/usr/src/app/processes.json'
+      - './ssr/tsconfig.json:/usr/src/app/tsconfig.json'
+      - '/usr/src/app/node_modules'
+      - '/usr/src/app/dist'
+      - '/etc/nginx/conf.d'
+      
+    networks:
+      - app-network
+ 
+  web-service:
+    container_name: web-service
+    build:
+      context: ./web/
+      dockerfile: Dockerfile
+    image: nginx:1.15
+    restart: unless-stopped
+    ports:
+      - "8400:80"
+    # volumes:
+    #   - './web:/usr/src/app'
+    #   - '/usr/src/app/node_modules'
+    #   - '/var/www/app'
+    #   - '/etc/nginx/conf.d'
+    depends_on:
+      - ssr-service
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+   
