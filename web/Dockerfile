@@ -1,5 +1,4 @@
 FROM node:12 AS builder
-# RUN npm i -g @angular/cli@8.3.28
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
