@@ -23,14 +23,35 @@ let appConfig;
 function getSubdomain(req) {
     const list = req.subdomains;
 
+    console.log('--- BEGIN ---');
+
+    console.log('list');
+    console.log(list);
+    console.log('---------------------------');
+
+
     let subdomain = list && list.length > 0 ? list[0] : 'stark-corp'
+    console.log('subdomain');
+    console.log(subdomain);
+    console.log('---------------------------');
+
     if (subdomain.indexOf('www.') !== -1) {
         subdomain = subdomain.substr(subdomain.indexOf(4))
     }
 
+    console.log('subdomain');
+    console.log(subdomain);
+    console.log('---------------------------');
+
+
     if (subdomain.indexOf('.') !== -1) {
         subdomain = subdomain.split('.')[0];
     }
+
+    console.log('subdomain');
+    console.log(subdomain);
+    console.log('---------------------------');
+    console.log('--- END ---');
 
     return subdomain;
 }
@@ -52,6 +73,7 @@ const extractSubdomain = (req) => {
 
 
 const getConfig = async (subdomain) => {
+    
     const url = ASSET_BUCKET_SERVICE_URL + `/app-config/${subdomain}`;
     console.log('url');
     console.log(url);
