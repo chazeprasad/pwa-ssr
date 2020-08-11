@@ -20,16 +20,22 @@ let appConfig;
 // const staticPath = path.join(__dirname, './', 'public');
 // app.use(express.static(staticPath));
 
-function getSubdomain(host) {
-    const subdomain = host ? host.substring(0, host.lastIndexOf('.')) : null;
+function getSubdomain(req) {
+    const list = req.subdomains
+    const subdomain = list && list.length > 0 ? list[0] : 'stark-corp'
     return subdomain;
 }
 
-const getSubdomainFromHost = (host) => {
+// function getSubdomain(host) {
+//     const subdomain = host ? host.substring(0, host.lastIndexOf('.')) : null;
+//     return subdomain;
+// }
+
+const extractSubdomain = (req) => {
     let subdomain = 'stark-corp';
 
     if (NODE_ENV !== 'local') {
-        subdomain = getSubdomain(host);
+        subdomain = getSubdomain(req);
     }
 
     console.log('subdomain');
@@ -84,7 +90,8 @@ app.set('views', path.join(__dirname, 'view'));
 app.set('view engine', '.hbs');
 
 app.get('/', async (req, res, next) => {
-    const subdomain = getSubdomainFromHost(req.headers.host);
+    // const subdomain = extractSubdomain(req.headers.host);
+    const subdomain = extractSubdomain(req);
     const config = await getConfig(subdomain);
 
     console.log('config');
