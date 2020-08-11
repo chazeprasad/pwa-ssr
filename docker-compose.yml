@@ -39,6 +39,27 @@ services:
     networks:
       - app-network
 
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - web-service
+    command: certonly --webroot --webroot-path=/var/www/app --email prasad@example.com --agree-tos --no-eff-email --staging -d appengine.in  -d www.appengine.in -d stark-corp.appengine.in -d www.stark-corp.appengine.in -d wayne-corp.appengine.in -d www.wayne-corp.appengine.in
+
+volumes:
+  certbot-etc:
+  certbot-var:
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/prasad/pwa-ssr/views/
+      o: bind
+
 networks:
   app-network:
     driver: bridge
