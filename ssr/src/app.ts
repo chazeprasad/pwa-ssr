@@ -101,6 +101,7 @@ app.get('/', async (req, res, next) => {
     const config = await getConfig(subdomain);
 
     console.log('subdomain');
+    console.log(req.subdomains);
     console.log(subdomain);
     console.log('config');
     console.log(config);
