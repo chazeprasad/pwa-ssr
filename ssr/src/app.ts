@@ -21,8 +21,17 @@ let appConfig;
 // app.use(express.static(staticPath));
 
 function getSubdomain(req) {
-    const list = req.subdomains
-    const subdomain = list && list.length > 0 ? list[0] : 'stark-corp'
+    const list = req.subdomains;
+
+    let subdomain = list && list.length > 0 ? list[0] : 'stark-corp'
+    if (subdomain.indexOf('www.') !== -1) {
+        subdomain = subdomain.substr(subdomain.indexOf(4))
+    }
+
+    if (subdomain.indexOf('.') !== -1) {
+        subdomain = subdomain.split('.')[0];
+    }
+
     return subdomain;
 }
 
