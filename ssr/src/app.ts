@@ -90,6 +90,7 @@ app.set('views', path.join(__dirname, 'view'));
 app.set('view engine', '.hbs');
 
 app.get('/', async (req, res, next) => {
+    
     // const subdomain = extractSubdomain(req.headers.host);
     const subdomain = extractSubdomain(req);
     const config = await getConfig(subdomain);
