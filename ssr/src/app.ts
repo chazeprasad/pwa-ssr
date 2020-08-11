@@ -47,9 +47,6 @@ const extractSubdomain = (req) => {
         subdomain = getSubdomain(req);
     }
 
-    console.log('subdomain');
-    console.log(subdomain);
-
     return subdomain;
 };
 
@@ -73,8 +70,7 @@ const getConfig = async (subdomain) => {
 // Manifest
 app.get('/manifest/:subdomain/:filename', async(req, res) => {
 
-    const subdomain = req.params.subdomain;
-    const filename = req.params.filename;
+    const subdomain = extractSubdomain(req);
     const config = await getConfig(subdomain);
 
     // Here we can dynamically generate manifest and serve.
@@ -104,6 +100,8 @@ app.get('/', async (req, res, next) => {
     const subdomain = extractSubdomain(req);
     const config = await getConfig(subdomain);
 
+    console.log('subdomain');
+    console.log(subdomain);
     console.log('config');
     console.log(config);
 
